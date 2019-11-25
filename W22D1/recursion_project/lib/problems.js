@@ -17,7 +17,13 @@
 // lucasNumber(5)   // => 11
 // lucasNumber(9)   // => 76
 function lucasNumber(n) {
+    if (n === 0) {
+        return 2;
+    }   else if (n === 1) {
+        return 1;
+    }
 
+    return lucasNumber(n - 1) + lucasNumber(n - 2);
 }
 
 
