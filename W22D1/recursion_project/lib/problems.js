@@ -87,9 +87,18 @@ function reverseString(str) {
 // pow(3, 4)    // => 81
 // pow(2, -5)   // => 0.03125
 function pow(base, exponent) {
-
+    if (exponent >= 0) {
+        if (exponent === 1) {
+            return base;
+        } else if (exponent === 0) {
+            return 1;
+        }
+        
+        return base * pow(base, exponent - 1);
+    } else if (exponent < 0) {
+        return 1 / (base * pow(base, -(exponent + 1)));
+    }
 }
-
 
 // A 1-dimensional array is also known as a flattened array.
 // Write a method, flatten(data), that accepts a single argument. The
@@ -120,7 +129,16 @@ function pow(base, exponent) {
 //     2-dimensional array: [['some data']]
 //     3-dimensional array: [[['some data']]]
 function flatten(data) {
+    if (!Array.isArray(data)) {
+        return data;
+    }
 
+    let new_arr = [];
+    data.forEach( el => {
+        new_arr = new_arr.concat(flatten(el));
+    });
+
+    return new_arr;
 }
 
 // Write a function, fileFinder(directories, targetFile), that accepts an object representing directories and a string respresenting a filename.
