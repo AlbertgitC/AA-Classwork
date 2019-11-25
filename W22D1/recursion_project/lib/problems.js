@@ -59,7 +59,14 @@ function sumArray(array) {
 // reverseString("internet")    // => "tenretni"
 // reverseString("friends")     // => "sdneirf"
 function reverseString(str) {
+    if (str.length === 0) {
+        return "";
+    } else if (str.length === 1) {
+        return str;
+    }
 
+    const chars = str.split("");
+    return [chars.pop()].concat(reverseString(chars.join(""))).join("");
 }
 
 
