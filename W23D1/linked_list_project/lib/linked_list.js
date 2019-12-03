@@ -128,22 +128,54 @@ class LinkedList {
 
     // TODO: Implement the set method here
     set(index, val) {
-
+        if (index < 0 || index >= this.length) return false;
+        let current_node = this.head;
+        for (let i = 0; i < index; i++) {
+            current_node = current_node.next;
+        }
+        current_node.value = val;
+        return true;
     }
 
     // TODO: Implement the insert method here
     insert(index, val) {
-
+        if (index < 0 || index >= this.length) {
+            return false;
+        } else if (index === 0) {
+            this.addToHead(val);
+            return true;
+        } else {
+            const new_node = new Node(val);
+            let current_node = this.head;
+            for (let i = 0; i < index; i++) {
+                if (i === index - 1) {
+                    new_node.next = current_node.next;
+                    current_node.next = new_node;
+                }
+                current_node = current_node.next;
+            }
+            this.length++;
+            return true;
+        }
     }
 
     // TODO: Implement the remove method here
     remove(index) {
-
+        if (index < 0 || index >= this.length) {
+            return undefined;
+        }
+        if (index === 0) return this.removeHead();
+        if (index === this.length - 1) return this.removeTail();
+        const target_node = this.get(index);
+        const prev_node = this.get(index - 1);
+        prev_node.next = target_node.next;
+        this.length--;
+        return target_node;
     }
 
     // TODO: Implement the size method here
     size() {
-
+        return this.length;
     }
 }
 
