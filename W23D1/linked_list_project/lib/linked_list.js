@@ -114,7 +114,16 @@ class LinkedList {
 
     // TODO: Implement the get method here
     get(index) {
+        if (!this.head) return null;
+        let current_node = this.head;
+        if (index < this.length && index >= 0) {
+            for (let i = 0; i < index; i++) {
+                current_node = current_node.next;
+            }
 
+            return current_node;
+        }
+        return null;
     }
 
     // TODO: Implement the set method here
