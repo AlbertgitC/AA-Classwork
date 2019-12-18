@@ -30,6 +30,11 @@ class MaxHeap {
             }
         }
     }
+
+    insert(val) {
+        this.array.push(val);
+        this.siftUp(this.array.length - 1);
+    }
 }
 
 module.exports = {
