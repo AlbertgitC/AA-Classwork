@@ -35,6 +35,35 @@ class MaxHeap {
         this.array.push(val);
         this.siftUp(this.array.length - 1);
     }
+
+    siftDown(idx) {
+        let sifted = false;
+        while (!sifted && this.getLeftChild(idx)) {
+            sifted = true;
+            if (!this.array[this.getRightChild(idx)]) {
+                if (this.array[idx] < this.array[this.getLeftChild(idx)]) {
+                    let temp = this.array[idx];
+                    this.array[idx] = this.array[this.getLeftChild(idx)];
+                    this.array[this.getLeftChild(idx)] = temp;
+                }
+                continue;
+            }
+
+            if (this.array[this.getLeftChild(idx)] >= this.array[this.getRightChild(idx)] && this.array[idx] < this.array[this.getLeftChild(idx)]) {
+                let temp = this.array[idx];
+                this.array[idx] = this.array[this.getLeftChild(idx)];
+                this.array[this.getLeftChild(idx)] = temp;
+                sifted = false;
+                this.siftDown(this.getLeftChild(idx));
+            } else if (this.array[this.getLeftChild(idx)] < this.array[this.getRightChild(idx)] && this.array[idx] < this.array[this.getRightChild(idx)]) {
+                let temp = this.array[idx];
+                this.array[idx] = this.array[this.getRightChild(idx)];
+                this.array[this.getRightChild(idx)] = temp;
+                sifted = false;
+                this.siftDown(this.getRightChild(idx));
+            }
+        }
+    }
 }
 
 module.exports = {
