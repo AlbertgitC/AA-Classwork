@@ -18,16 +18,12 @@ class MaxHeap {
     }
 
     siftUp(idx) {
-        let sifted = false;
-        while(!sifted && this.getParent(idx)) {
-            sifted = true;
-            if (this.array[idx] > this.array[this.getParent(idx)]) {
-                let temp = this.array[idx];
-                this.array[idx] = this.array[this.getParent(idx)];
-                this.array[this.getParent(idx)] = temp;
-                sifted = false;
-                this.siftUp(this.getParent(idx));
-            }
+        if (idx === 1) return;
+        if (this.array[idx] > this.array[this.getParent(idx)]) {
+            let temp = this.array[idx];
+            this.array[idx] = this.array[this.getParent(idx)];
+            this.array[this.getParent(idx)] = temp;
+            this.siftUp(this.getParent(idx));
         }
     }
 
@@ -37,32 +33,33 @@ class MaxHeap {
     }
 
     siftDown(idx) {
-        let sifted = false;
-        while (!sifted && this.getLeftChild(idx)) {
-            sifted = true;
-            if (!this.array[this.getRightChild(idx)]) {
-                if (this.array[idx] < this.array[this.getLeftChild(idx)]) {
-                    let temp = this.array[idx];
-                    this.array[idx] = this.array[this.getLeftChild(idx)];
-                    this.array[this.getLeftChild(idx)] = temp;
-                }
-                continue;
-            }
+        const left_idx = this.getLeftChild(idx);
+        const right_idx = this.getRightChild(idx);
+        let left_val = this.array[left_idx];
+        let right_val = this.array[right_idx];
+        if (left_val === undefined) left_val = -Infinity;
+        if (right_val === undefined) right_val = -Infinity;
 
-            if (this.array[this.getLeftChild(idx)] >= this.array[this.getRightChild(idx)] && this.array[idx] < this.array[this.getLeftChild(idx)]) {
-                let temp = this.array[idx];
-                this.array[idx] = this.array[this.getLeftChild(idx)];
-                this.array[this.getLeftChild(idx)] = temp;
-                sifted = false;
-                this.siftDown(this.getLeftChild(idx));
-            } else if (this.array[this.getLeftChild(idx)] < this.array[this.getRightChild(idx)] && this.array[idx] < this.array[this.getRightChild(idx)]) {
-                let temp = this.array[idx];
-                this.array[idx] = this.array[this.getRightChild(idx)];
-                this.array[this.getRightChild(idx)] = temp;
-                sifted = false;
-                this.siftDown(this.getRightChild(idx));
-            }
+        if (this.array[idx] > left_val && this.array[idx] > right_val) return;
+
+        let swap_idx;
+        if (right_val < left_val) {
+            swap_idx = left_idx;
+        } else {
+            swap_idx = right_idx;
         }
+
+        [this.array[idx], this.array[swap_idx]] = [this.array[swap_idx], this.array[idx]];
+        this.siftDown(swap_idx);
+    }
+
+    deleteMax() {
+        if (!this.array[1]) return null;
+        if (this.array.length === 2) {
+            const ele = this.array.pop();
+            return ele;
+        }
+
     }
 }
 
