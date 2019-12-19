@@ -59,7 +59,10 @@ class MaxHeap {
             const ele = this.array.pop();
             return ele;
         }
-
+        const max_val = this.array[1];
+        this.array[1] = this.array.pop();
+        this.siftDown(1);
+        return max_val;
     }
 }
 
