@@ -54,7 +54,7 @@ class MaxHeap {
     }
 
     deleteMax() {
-        if (!this.array[1]) return null;
+        if (this.array.length === 1) return null;
         if (this.array.length === 2) {
             const ele = this.array.pop();
             return ele;
@@ -65,6 +65,19 @@ class MaxHeap {
         return max_val;
     }
 }
+
+var findKthLargest = function (nums, k) {
+    const heap = new MaxHeap();
+    nums.forEach(num => heap.insert(num));
+    
+    for (let i = 1; i < k; i++) {
+        heap.deleteMax();
+    }
+    
+    return heap.deleteMax();
+};
+
+console.log(findKthLargest([-1,2,0], 3))
 
 module.exports = {
     MaxHeap
