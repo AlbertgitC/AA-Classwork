@@ -39,6 +39,17 @@ class Trie {
             root = root.children[char];
         });
     }
+
+    searchRecur(word, node = this.root) {
+        if (!(word[0] in node.children)) {
+            return false;
+        } else if (word.length === 1 && node.children[word[0]].isTerminal) {
+            return true;
+        } else {
+            return this.searchRecur(word.slice(1), node.children[word[0]]);
+        };
+
+    }
 }
 
 module.exports = {
