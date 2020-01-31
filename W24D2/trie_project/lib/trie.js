@@ -22,7 +22,22 @@ class Trie {
         } else {
             this.insertRecur(word.slice(1), root.children[first_char]);
         }
-        
+    }
+
+    insertIter(word) {
+        const chars = word.split("");
+        let root = this.root;
+        chars.forEach((char, i) => {
+            if (!(char in root.children)) {
+                root.children[char] = new Node();
+            }
+
+            if (i === word.length - 1) {
+                root.children[char].isTerminal = true;
+            }
+
+            root = root.children[char];
+        });
     }
 }
 
