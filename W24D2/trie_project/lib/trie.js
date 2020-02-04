@@ -65,6 +65,39 @@ class Trie {
         };
         return false;
     };
+
+    wordsWithPrefix(prefix, node = this.root) {
+        if (prefix.length === 0) {
+            const allWords = [];
+
+            if (node.isTerminal) {
+                allWords.push("");
+            };
+
+            for (let char in node.children) {
+                let child = node.children[char];
+                let suffixes = this.wordsWithPrefix(prefix, child);
+                const words = suffixes.map(suffix => {
+                    return char + suffix;
+                });
+                allWords.push(...words);
+            };
+
+            return allWords;
+        } else {
+            const firstChar = prefix[0];
+            const child = node.children[firstChar];
+            if (child === undefined) {
+                return [];
+            } else {
+                let suffixes = this.wordsWithPrefix(prefix.slice(1), child);
+                const words = suffixes.map(suffix => {
+                    return firstChar + suffix;
+                });
+                return words;
+            }
+        }
+    }
 }
 
 module.exports = {
